@@ -29,10 +29,12 @@ public class SecurityConfig {
         return http
                 .authorizeRequests()
 
+                .antMatchers("/").permitAll()
+                .antMatchers("/home").permitAll()
+                .antMatchers("/simple").permitAll()
+
                 .antMatchers("/client").hasRole("USER")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/simple").permitAll()
-                .antMatchers("/home").permitAll()
 
                 .anyRequest()
                 .authenticated()

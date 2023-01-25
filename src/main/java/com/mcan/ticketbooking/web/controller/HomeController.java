@@ -19,7 +19,7 @@ public class HomeController {
     }
 
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String homePage(Model model) {
         model.addAttribute("appName", "Welcome home");
         return "home";
