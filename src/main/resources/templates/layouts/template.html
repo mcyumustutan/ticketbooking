@@ -65,6 +65,7 @@
             <h5>Resources</h5>
             <ul class="list-unstyled text-small">
                 <li sec:authorize="isAuthenticated()" class="mb-1">
+                    Hoşgeldiniz: <span sec:authentication="name"></span>
                     <a class="link-secondary text-decoration-none" href="login?logout">Çıkış</a>
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="mb-1">
