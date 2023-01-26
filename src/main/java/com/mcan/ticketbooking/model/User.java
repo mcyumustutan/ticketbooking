@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="user_table")
+@Table(name="users")
 public class User {
 
     @Id
@@ -39,5 +40,15 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")}
     )
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserTicket> userTickets;
+
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(name = "user_ticket",
+//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id")}
+//    )
+//    private List<Ticket> tickets;
 
 }
