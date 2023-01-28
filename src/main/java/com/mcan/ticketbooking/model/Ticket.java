@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Builder
@@ -21,7 +19,7 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ticket_id")
-    private Long id;
+    private Long ticketId;
 
     @Column(name = "start", nullable = false)
     private String start;
@@ -40,8 +38,5 @@ public class Ticket {
 
     @Column(name = "availableFinish", nullable = false)
     private LocalDate availableFinish;
-
-    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-    private Set<UserTicket> userTickets = new HashSet<>();
 
 }

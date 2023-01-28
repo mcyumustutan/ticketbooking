@@ -19,15 +19,9 @@ public class UserTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_ticket_id")
-    private Long id;
+    private Long userTicketId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "ticket_id")
-    private Ticket ticket;
+    private long user_id;
 
     @Column(name = "reserved_at")
     private LocalDate reservedAt;
@@ -38,5 +32,21 @@ public class UserTicket {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private TicketStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
+
+    @Override
+    public String toString() {
+        return "userTicketList["
+                + "user_ticket_id=" + userTicketId
+                + ", userId=" + user_id
+                + ", status=" + status
+                + ", reservedAt=" + reservedAt
+                + ", ticket=" + ticket
+                + ""
+                + "]";
+    }
 }
 
