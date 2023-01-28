@@ -8,18 +8,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class UserTicketServiceImpl implements UserTicketService {
 
-    private UserTicketRepository userTicketRepository;
+    private final UserTicketRepository userTicketRepository;
 
     @Autowired
-    public UserTicketServiceImpl(UserTicketRepository userTicketRepository ){
+    public UserTicketServiceImpl(UserTicketRepository userTicketRepository) {
         this.userTicketRepository = userTicketRepository;
     }
 
     @Override
-    public List<UserTicket> findUserTickets(Long user_id) {
-        return null;
+    public List<UserTicket> findUserTickets() {
+        return this.userTicketRepository.findAll();
     }
 }
