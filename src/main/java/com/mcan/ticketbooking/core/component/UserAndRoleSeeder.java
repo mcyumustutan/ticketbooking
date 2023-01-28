@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -34,9 +33,6 @@ public class UserAndRoleSeeder implements ApplicationRunner {
     @Autowired
     private UserTicketRepository userTicketRepository;
 
-    private LocalDate globalStartDate;
-    private LocalDate globalFinishDate;
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
@@ -54,21 +50,21 @@ public class UserAndRoleSeeder implements ApplicationRunner {
         userRoleList.add(roleUser);
 
         User admin = User.builder()
-                .id(1L)
+                .userId(1L)
                 .name("admin")
                 .email("admin@g.com")
                 .password(passwordEncoder.encode("12345678"))
                 .roles(adminRoleList).build();
         userRepository.save(admin);
 
-        User user = User.builder().id(2L)
+        User user = User.builder().userId(2L)
                 .name("usercan")
                 .email("user@g.com")
                 .password(passwordEncoder.encode("12345678"))
                 .roles(userRoleList).build();
         userRepository.save(user);
 
-        User user1 = User.builder().id(2L)
+        User user1 = User.builder().userId(2L)
                 .name("democan")
                 .email("demo@g.com")
                 .password(passwordEncoder.encode("12345678"))
@@ -76,49 +72,49 @@ public class UserAndRoleSeeder implements ApplicationRunner {
         userRepository.save(user1);
 
 
-        this.globalStartDate = LocalDate.now().minusDays(50);
-        this.globalFinishDate = LocalDate.now().plusDays(50);
+        LocalDate globalStartDate = LocalDate.now().minusDays(50);
+        LocalDate globalFinishDate = LocalDate.now().plusDays(50);
 
         Ticket ticket1 = Ticket.builder()
-                .id(1L)
+                .ticketId(1L)
                 .start("Adana")
                 .finish("İstabul")
                 .seatQty(65)
                 .price(BigDecimal.valueOf(465))
-                .availableStart(this.globalStartDate)
-                .availableFinish(this.globalFinishDate)
+                .availableStart(globalStartDate)
+                .availableFinish(globalFinishDate)
                 .build();
         ticketRepository.save(ticket1);
 
         Ticket ticket2 = Ticket.builder()
-                .id(1L)
+                .ticketId(1L)
                 .start("Adana")
                 .finish("Ankara")
                 .seatQty(60)
                 .price(BigDecimal.valueOf(405))
-                .availableStart(this.globalStartDate)
-                .availableFinish(this.globalFinishDate)
+                .availableStart(globalStartDate)
+                .availableFinish(globalFinishDate)
                 .build();
         ticketRepository.save(ticket2);
 
         Ticket ticket3 = Ticket.builder()
-                .id(1L)
+                .ticketId(1L)
                 .start("Adana")
                 .finish("Eskişehir")
                 .seatQty(40)
                 .price(BigDecimal.valueOf(355))
-                .availableStart(this.globalStartDate)
-                .availableFinish(this.globalFinishDate)
+                .availableStart(globalStartDate)
+                .availableFinish(globalFinishDate)
                 .build();
         ticketRepository.save(ticket3);
 
         Ticket ticket4 = Ticket.builder()
-                .id(1L)
+                .ticketId(1L)
                 .start("Adana")
                 .finish("İzmir")
                 .seatQty(40)
                 .price(BigDecimal.valueOf(455))
-                .availableStart(this.globalStartDate)
+                .availableStart(globalStartDate)
                 .availableFinish(LocalDate.now().plusDays(50))
                 .build();
         ticketRepository.save(ticket4);
@@ -128,7 +124,7 @@ public class UserAndRoleSeeder implements ApplicationRunner {
         List<Ticket> demoTickets = ticketRepository.findAll();
 
         UserTicket UserTicket1 = UserTicket.builder()
-                .user(demoUsers.get(1))
+                .user_id(demoUsers.get(1).getUserId())
                 .ticket(demoTickets.get(1))
                 .reservedAt(LocalDate.now())
                 .reservedQty(1)
@@ -137,7 +133,7 @@ public class UserAndRoleSeeder implements ApplicationRunner {
         userTicketRepository.save(UserTicket1);
 
         UserTicket UserTicket2 = UserTicket.builder()
-                .user(demoUsers.get(1))
+                .user_id(demoUsers.get(1).getUserId())
                 .ticket(demoTickets.get(2))
                 .reservedAt(LocalDate.now())
                 .reservedQty(1)
@@ -146,14 +142,13 @@ public class UserAndRoleSeeder implements ApplicationRunner {
         userTicketRepository.save(UserTicket2);
 
         UserTicket UserTicket3 = UserTicket.builder()
-                .user(demoUsers.get(2))
+                .user_id(demoUsers.get(2).getUserId())
                 .ticket(demoTickets.get(2))
                 .reservedAt(LocalDate.now())
                 .reservedQty(1)
                 .status(TicketStatus.RESERVED)
                 .build();
         userTicketRepository.save(UserTicket3);
-
 
 
     }
