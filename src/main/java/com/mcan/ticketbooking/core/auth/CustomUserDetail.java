@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class CustomUserDetail implements UserDetails {
 
+    private final User user;
     private Long id;
     private String name;
     private String email;
@@ -18,18 +19,23 @@ public class CustomUserDetail implements UserDetails {
     private List<GrantedAuthority> roles;
 
 
-    public CustomUserDetail(User user){
-        this.id=user.getId();
-        this.name=user.getName();
-        this.email=user.getEmail();
-        this.password=user.getPassword();
-        this.roles=user.getRoles().stream().map((role -> new SimpleGrantedAuthority(role.getRoleName()))).collect(Collectors.toList());
+    public CustomUserDetail(User user) {
+        this.user = user;
+        this.id = user.getUserId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.roles = user.getRoles().stream().map((role -> new SimpleGrantedAuthority(role.getRoleName()))).collect(Collectors.toList());
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
@@ -61,4 +67,5 @@ public class CustomUserDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
